@@ -43,7 +43,7 @@ export default class ModalDetail extends Component {
                   </td>
                   <td>{productDetail.description}</td>
                   <td>{productDetail.quantity}</td>
-                  <td>{productDetail.price}</td>
+                  <td>{productDetail.price}$</td>
                 </tr>
               </tbody>
             </table>

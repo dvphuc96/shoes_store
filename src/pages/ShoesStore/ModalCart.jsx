@@ -2,8 +2,18 @@ import React, { Component } from "react";
 import Modal from "react-bootstrap/Modal";
 import Button from "react-bootstrap/Button";
 export default class ModalCart extends Component {
+  checkDisable = (quantity) => {
+    return quantity === 1 ? true : false;
+  };
   render() {
-    const { show, carts, handleCloseModal, removeCart } = this.props;
+    const {
+      show,
+      carts,
+      handleCloseModal,
+      removeCart,
+      handleUpQuantity,
+      handleDownQuantity,
+    } = this.props;
     return (
       <>
         <Modal
@@ -11,7 +21,6 @@ export default class ModalCart extends Component {
           onHide={handleCloseModal}
           size="lg"
           aria-labelledby="contained-modal-title-vcenter"
-          toped
         >
           <Modal.Header closeButton>
             <Modal.Title>Carts</Modal.Title>
@@ -44,11 +53,26 @@ export default class ModalCart extends Component {
                         />
                       </td>
                       <td>
-                        <button className="btn btn-primary mx-2">+</button>
+                        <button
+                          className="btn btn-primary mx-2"
+                          onClick={() => {
+                            handleUpQuantity(product.id);
+                          }}
+                        >
+                          +
+                        </button>
                         {product.quantity}
-                        <button className="btn btn-primary mx-2">-</button>
+                        <button
+                          className="btn btn-primary mx-2"
+                          onClick={() => {
+                            handleDownQuantity(product.id);
+                          }}
+                          disabled= {this.checkDisable(product.quantity)}
+                        >
+                          -
+                        </button>
                       </td>
-                      <td>{product.price}</td>
+                      <td>{product.price}$</td>
                       <td>
                         {(product.quantity * product.price).toLocaleString()}$
                       </td>

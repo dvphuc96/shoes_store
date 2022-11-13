@@ -195,7 +195,28 @@ export default class ShoeShop extends Component {
     this.setState({
       carts: carts,
     });
-    console.log(this.state);
+  };
+  handleUpQuantity = (id) => {
+    let carts = this.state.carts;
+    let productCart = carts.find((product) => product.id === id);
+    productCart.quantity = productCart.quantity + 1;
+    this.setState({
+      carts: carts,
+      isDisabled: false,
+    });
+  };
+  handleDownQuantity = (id) => {
+    let carts = this.state.carts;
+    let productCart = carts.find((product) => product.id === id);
+    productCart.quantity = productCart.quantity - 1;
+    if (productCart.quantity === 1) {
+      this.setState({
+        isDisabled: true,
+      });
+    }
+    this.setState({
+      carts: carts,
+    });
   };
   render() {
     return (
@@ -233,8 +254,10 @@ export default class ShoeShop extends Component {
               <ModalCart
                 show={this.state.show}
                 carts={this.state.carts}
-                handleCloseModal={this.handleCloseModal}
                 removeCart={this.removeCart}
+                handleCloseModal={this.handleCloseModal}
+                handleUpQuantity={this.handleUpQuantity}
+                handleDownQuantity={this.handleDownQuantity}
               />
               <ModalDetail
                 showDetail={this.state.showDetail}
